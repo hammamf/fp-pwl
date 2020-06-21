@@ -1,0 +1,331 @@
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title my-2">Data Fotografer Hypesthetic Creative</h4>
+            <button type="button" class="btn btn-primary btn-fw my-2" data-toggle="modal"
+                data-target="#exampleModal">Tambah Fotografer</button>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th> No </th>
+                        <th> Nama </th>
+                        <th> Kontak </th>
+                        <th> Actions </th>
+                    </tr>
+                </thead>
+                <tbody id="tabel-data-fotografer">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Tambah -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content bg-white">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add New Fotografer</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="post-fotografer" name="post-fotografer" action="">
+
+                    <div class="my-2">
+                        <div class="form-group my-2">
+                            <label>Nama</label>
+                            <input type="text" class="form-control" placeholder="Nama" name="name" id="name">
+                        </div>
+                        <div class="form-group my-2">
+                            <label for="">Email</label>
+                            <input type="email" class="form-control" placeholder="Email" name="email" id="email">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="">Username</label>
+                                <input type="text" class="form-control" placeholder="Username" name="username"
+                                    id="username">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="">Password</label>
+                                <input type="password" class="form-control" placeholder="Password" name="password"
+                                    id="password">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group my-2">
+                        <label>Foto</label>
+                        <input type="file" class="form-control-file" name="foto" id="foto">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Kontak</label>
+                        <input type="text" class="form-control" placeholder="Kontak" name="kontak" id="kontak">
+                    </div>
+                    <div class="form-group">
+                        <label>Alamat</label>
+                        <textarea class="form-control" name="alamat" id="alamat" rows="3"></textarea>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close-button">Close</button>
+                <button type="button" class="btn btn-primary" id="tambah-fotografer">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
+
+<!-- Modal Detail -->
+<div class="modal fade" id="detail-fotografer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content bg-white">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Detail Data Fotografer</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card mx-auto" style="width: 18rem;">
+                    <img src="#" class="card-img-top" alt="Detail Foto Fotografer">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Nama : <span id="detail-nama"></span></li>
+                        <li class="list-group-item">Username : <span id="detail-username"></span></li>
+                        <li class="list-group-item">Email : <span id="detail-email"></span></li>
+                        <li class="list-group-item">Kontak : <span id="detail-kontak"></span></li>
+                        <li class="list-group-item">Alamat : <span id="detail-alamat"></span></li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal Detail -->
+
+<!-- Modal Update -->
+<div class="modal fade" id="update-fotografer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content bg-white">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update data Fotografer</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="form-update-fotografer" name="form-update-fotografer" action="">
+                    <input type="hidden" id="fotografer-id">
+                    <div class="my-2">
+                        <div class="form-group my-2">
+                            <label>Nama</label>
+                            <input type="text" class="form-control" placeholder="Nama" name="name" id="name-update">
+                        </div>
+                        <div class="form-group my-2">
+                            <label for="">Email</label>
+                            <input type="email" class="form-control" placeholder="Email" name="email" id="email-update">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="">Username</label>
+                                <input type="text" class="form-control" placeholder="Username" name="username"
+                                    id="username-update">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="">Password</label>
+                                <input type="password" class="form-control" placeholder="Password" name="password"
+                                    id="password-update">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group my-2">
+                        <label>Foto</label>
+                        <input type="file" class="form-control-file" name="foto" id="foto">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Kontak</label>
+                        <input type="text" class="form-control" placeholder="Kontak" name="kontak" id="kontak-update">
+                    </div>
+                    <div class="form-group">
+                        <label>Alamat</label>
+                        <textarea class="form-control" name="alamat" id="alamat-update" rows="3"></textarea>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close-button-update">Close</button>
+                <button type="button" class="btn btn-primary" id="update-fotografer-btn">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
+
+
+<script>
+    $(document).ready(function () {
+
+        base_url = 'http://fp-pwl.test/';
+        let nomor = 1;
+
+        //list data Fotografers
+        $.ajax({
+            type: "GET",
+            url: base_url + "fotografers/",
+            dataType: "json",
+        }).done(function (response) {
+            $.each(response.data, function (i) {
+                $('#tabel-data-fotografer').append(
+                    "<tr>" +
+                    "<td>" +
+                    nomor++ + "</td>" +
+                    "<td>" +
+                    response.data[i].name + "</td>" +
+                    "<td>" +
+                    response.data[i].kontak + "</td>" +
+                    "<td> " +
+                    "<button type='button' class='btn btn-info btn-sm mx-1' id='cek-detail' data-toggle='modal' data-target='#detail-fotografer' fg-id='" +
+                    response.data[i].fotografer_id + "'>Detail</button>" +
+                    "<button type='button' class='btn btn-warning btn-sm mx-1' id='update-fg-btn' data-toggle='modal' data-target='#update-fotografer' fg-id='" +
+                    response.data[i].fotografer_id + "'>Update</button>" +
+                    "<button type='button' class='btn btn-danger btn-sm mx-1' id='fotografer-del' data-id='" +
+                    response.data[i].fotografer_id + "'>Delete</button>" +
+                    "</td > " +
+                    "</tr>"
+                );
+            });
+        });
+
+        //detail data Fotografers
+        $(document).on('click', '#cek-detail', function () {
+            _this = $(this);
+            _fg_id = _this.attr('fg-id');
+
+            $.ajax({
+                type: "GET",
+                url: base_url + "fotografer/" + _fg_id,
+                dataType: "json",
+            }).done(function (response) {
+                $('#detail-nama').text(response.data.name);
+                $('#detail-username').text(response.data.username);
+                $('#detail-email').text(response.data.email);
+                $('#detail-kontak').text(response.data.kontak);
+                $('#detail-alamat').text(response.data.alamat);
+            });
+        });
+
+        //tambah data Fotografers
+        $(document).on('click', '#tambah-fotografer', function () {
+            $.ajax({
+                type: 'POST',
+                url: base_url + "fotografers/",
+                data:$('#post-fotografer').serialize(),
+
+            }).done(function (response) {
+                alert("berhasil tambah data!");
+                console.log(response);
+
+                //kosongkan field
+                $('#name').val('');
+                $('#username').val('');
+                $('#email').val('');
+                $('#password').val('');
+                $('#foto').val('');
+                $('#kontak').val('');
+                $('#alamat').val('');
+                $('#close-button').click();
+                $('#data-fg').click();
+            }).fail(function (response) {
+                alert('Mungkin Username atau Email sudah dipakai');
+                console.log(response);
+                
+            });
+        });
+
+        //Hapus Fotografer Data
+        $(document).on('click', '#fotografer-del', function () {
+
+            _this = $(this);
+            _id = _this.attr('data-id');
+
+            $.ajax({
+                type: "DELETE",
+                url: base_url + "fotografer/" + _id,
+            }).done(function (response) {
+                console.log(response.message);
+                alert(response.message);
+                $('#data-fg').click();
+            }).fail(function (xhr, status, error) {
+                if (xhr.status == 403) {
+                    alert(JSON.parse(xhr.responseText).error);
+                }
+            });
+        });
+
+        //edit data fotografer
+        $(document).on('click', '#update-fg-btn', function () {
+            _this = $(this);
+            _fg_id = _this.attr('fg-id');
+
+            $.ajax({
+                type: "GET",
+                url: base_url + "fotografer/" + _fg_id,
+                dataType: "json",
+            }).done(function (response) {
+                $('#fotografer-id').val(response.data.fotografer_id);
+                $('#name-update').val(response.data.name);
+                $('#username-update').val(response.data.username);
+                $('#email-update').val(response.data.email);
+                $('#kontak-update').val(response.data.kontak);
+                $('#alamat-update').val(response.data.alamat);
+                console.log(response.data.name);
+                
+            });
+        });
+        //put data edit fotografer
+        $(document).on('click', '#update-fotografer-btn', function () {
+
+            $.ajax({
+                type: 'PUT',
+                url: base_url + "fotografer/" + $('#fotografer-id').val(),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                data:$('#form-update-fotografer').serialize(),
+
+            }).done(function (response) {
+                console.log(response);
+                $('#close-button-update').click();
+                $('#data-fg').click();
+                alert("berhasil update data!");
+            }).fail(function (response) {
+                alert('Gagal Boss!');
+                console.log(response);
+                
+            });
+        });
+
+
+
+    });
+</script>

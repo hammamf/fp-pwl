@@ -1,0 +1,253 @@
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <input type="hidden" id="key-classroom">
+        <div class="card-body">
+            <h4 class="card-title my-2">Data Client Sekolah</h4>
+            <button type="button" class="btn btn-primary btn-fw my-2" data-toggle="modal"
+                data-target="#tambah-sekolah">Tambah Sekolah</button>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th> No </th>
+                        <th> Nama </th>
+                        <th> Jumlah Kelas </th>
+                        <th> Actions </th>
+                    </tr>
+                </thead>
+                <tbody id="tabel-data-fotografer">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Tambah -->
+<div class="modal fade" id="tambah-sekolah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content bg-white">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Sekolah Baru</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="post-sekolah" name="post-sekolah" action="">
+
+                    <div class="my-2">
+                        <div class="form-group my-2">
+                            <label>Nama</label>
+                            <input type="text" class="form-control" placeholder="Nama Sekolah" name="name" id="name">
+                        </div>
+                        <div class="form-group my-2">
+                            <label for="">Jumlah kelas</label>
+                            <input type="number" class="form-control" name="total_classrooms" id="total_classrooms">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close-button-sekolah">Close</button>
+                <button type="button" class="btn btn-primary" id="tambah-sekolah-btn">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
+
+<!-- Modal Detail -->
+<!-- <div class="modal fade" id="detail-fotografer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content bg-white">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Detail Data Sekolah</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card mx-auto" style="width: 18rem;">
+                    <img src="#" class="card-img-top" alt="Detail Foto Fotografer">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Nama : <span id="detail-nama"></span></li>
+                        <li class="list-group-item">Username : <span id="detail-username"></span></li>
+                        <li class="list-group-item">Email : <span id="detail-email"></span></li>
+                        <li class="list-group-item">Kontak : <span id="detail-kontak"></span></li>
+                        <li class="list-group-item">Alamat : <span id="detail-alamat"></span></li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div> -->
+<!-- End Modal Detail -->
+
+<!-- Modal Update -->
+<div class="modal fade" id="update-sekolah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content bg-white">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update Data Sekolah</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="form-update-sekolah" name="form-update-sekolah" action="">
+                    <input type="hidden" name="school_id" id="school_id">
+                    <div class="my-2">
+                        <div class="form-group my-2">
+                            <label>Nama</label>
+                            <input type="text" class="form-control" placeholder="Nama Sekolah" name="name" id="name-school-update">
+                        </div>
+                        <div class="form-group my-2">
+                            <label for="">Jumlah kelas</label>
+                            <input type="number" class="form-control" name="total_classrooms" id="total_classrooms-update">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close-button-school-update">Close</button>
+                <button type="button" class="btn btn-primary" id="update-school-btn">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
+
+
+<script>
+    $(document).ready(function () {
+
+        base_url = 'http://fp-pwl.test/';
+        let nomor = 1;
+
+        //list data Sekolah
+        $.ajax({
+            type: "GET",
+            url: base_url + "schools/",
+            dataType: "json",
+        }).done(function (response) {
+            $.each(response.data, function (i) {
+                $('#tabel-data-fotografer').append(
+                    "<tr>" +
+                    "<td>" +
+                    nomor++ + "</td>" +
+                    "<td>" +
+                    response.data[i].name + "</td>" +
+                    "<td>" +
+                    response.data[i].total_classrooms + "</td>" +
+                    "<td> " +
+                    "<button type='button' class='btn btn-info btn-sm mx-1' id='detail-kelas-sekolah' data-toggle='modal' data-target='#detail-fotografer' school-id='" +
+                    response.data[i].school_id + "'>Detail</button>" +
+                    "<button type='button' class='btn btn-warning btn-sm mx-1' id='update-school' data-toggle='modal' data-target='#update-sekolah' school-id='" +
+                    response.data[i].school_id + "'>Update</button>" +
+                    "<button type='button' class='btn btn-danger btn-sm mx-1' id='school-del' data-id='" +
+                    response.data[i].school_id + "'>Delete</button>" +
+                    "</td > " +
+                    "</tr>"
+                );
+            });
+        });
+
+
+        //tambah data Sekolah
+        $(document).on('click', '#tambah-sekolah-btn', function () {
+            $.ajax({
+                type: 'POST',
+                url: base_url + "schools/",
+                data:$('#post-sekolah').serialize(),
+
+            }).done(function (response) {
+                console.log(response);
+                
+                //kosongkan field
+                $('#name').val('');
+                $('#total_classrooms').val('');
+                $('#close-button-sekolah').click();
+                $('#list-sekolah').click();
+                // alert("berhasil tambah data!");
+            }).fail(function (response) {
+                alert('Gagal menambah data');
+                console.log(response);
+                
+            });
+        });
+
+        //Hapus Data Sekolah
+        $(document).on('click', '#school-del', function () {
+
+            _this = $(this);
+            _id = _this.attr('data-id');
+
+            $.ajax({
+                type: "DELETE",
+                url: base_url + "school/" + _id,
+            }).done(function (response) {
+                console.log(response.message);
+                $('#list-sekolah').click();
+                alert(response.message);
+            }).fail(function (xhr, status, error) {
+                if (xhr.status == 403) {
+                    alert(JSON.parse(xhr.responseText).error);
+                }
+            });
+        });
+
+        //edit data fotografer
+        $(document).on('click', '#update-school', function () {
+            _this = $(this);
+            _school_id = _this.attr('school-id');
+
+            $.ajax({
+                type: "GET",
+                url: base_url + "school/" + _school_id,
+                dataType: "json",
+            }).done(function (response) {
+                $('#school_id').val(response.data.school_id);
+                $('#name-school-update').val(response.data.name);
+                $('#total_classrooms-update').val(response.data.total_classrooms);
+                console.log(response.data.name);
+            });
+        });
+        
+        //put data edit fotografer
+        $(document).on('click', '#update-school-btn', function () {
+
+            $.ajax({
+                type: 'PUT',
+                url: base_url + "school/" + $('#school_id').val(),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                data:$('#form-update-sekolah').serialize(),
+
+            }).done(function (response) {
+                console.log(response);
+                $('#close-button-school-update').click();
+                $('#list-sekolah').click();
+                alert("berhasil update data!");
+            }).fail(function (response) {
+                alert('Gagal Boss!');
+                console.log(response);
+                
+            });
+        });
+
+        $(document).on('click', '#detail-kelas-sekolah', function () {
+            _this = $(this);
+            _school_id = _this.attr('school-id');
+            $('#key-classroom').val(_school_id);
+            $('.card-body').load('../admin/kelas/index.html');
+        });
+
+
+    });
+</script>

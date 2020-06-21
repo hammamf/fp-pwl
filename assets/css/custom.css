@@ -1,0 +1,52 @@
+.nav-item:hover,
+.nav-item a:hover,
+.nav-item a i:hover {
+    background: #680D96 !important;
+    color: white !important;
+}
+
+.btn-primary {
+    background-color: #680D96 !important;
+}
+
+.btn-danger {
+    background-color: #E06043 !important;
+}
+
+.btn-warning {
+    background-color: #FEB91E !important;
+}
+
+input:focus {
+    border-color: #680D96 !important;
+}
+
+.wall-login img {
+    /* background-image: url(../images/login.png); */
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    float: left;
+}
+
+.login-title {
+    color: #680D96;
+}
+
+.dashboard {
+    background-image: url(../images/home-maskot.png);
+    width: 41rem;
+    height: 14rem;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.text-dashboard {
+    margin-top: 4.5rem;
+}
+
+.nav-pills .nav-link.active {
+    background-color: #680D96;
+}

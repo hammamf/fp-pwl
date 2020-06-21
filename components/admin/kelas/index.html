@@ -1,0 +1,235 @@
+<button type="button" class="btn btn-secondary btn-sm mb-3">Back</button>
+<h4 class="card-title my-2">Data Kelas</h4>
+<button type="button" class="btn btn-primary btn-fw my-2" data-toggle="modal" data-target="#tambah-kelas">Tambah
+    Kelas</button>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th> No </th>
+            <th> Nama </th>
+            <th> Jumlah Anak </th>
+            <th> Actions </th>
+        </tr>
+    </thead>
+    <tbody id="tabel-data-kelas">
+
+    </tbody>
+</table>
+
+<!-- Modal Tambah -->
+<div class="modal fade" id="tambah-kelas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content bg-white">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Kelas Baru</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="post-kelas" name="post-kelas" action="">
+                    <input type="hidden" id="key-class" name="school_id">
+                    <div class="my-2">
+                        <div class="form-group my-2">
+                            <label>Nama</label>
+                            <input type="text" class="form-control" placeholder="Nama Kelas" name="name" id="name">
+                        </div>
+                        <div class="form-group my-2">
+                            <label for="">Jumlah kelas</label>
+                            <input type="number" class="form-control" name="total_students" id="total_students">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                    id="close-button-kelas">Close</button>
+                <button type="button" class="btn btn-primary" id="tambah-kelas-btn">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
+
+<!-- Modal Update -->
+<div class="modal fade" id="update-kelas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content bg-white">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update Data Kelas</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="form-update-kelas" name="form-update-kelas" action="">
+                    <input type="hidden" name="class_id" id="class_id-update">
+                    <input type="hidden" name="school_id" id="school_id-update">
+                    <div class="my-2">
+                        <div class="form-group my-2">
+                            <label>Nama</label>
+                            <input type="text" class="form-control" placeholder="Nama Kelas" name="name" id="name-class-update">
+                        </div>
+                        <div class="form-group my-2">
+                            <label for="">Jumlah kelas</label>
+                            <input type="number" class="form-control" name="total_students" id="total_students-update">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close-button-class-update">Close</button>
+                <button type="button" class="btn btn-primary" id="update-class-btn">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
+
+<script>
+    $(document).ready(function () {
+        base_url = 'http://fp-pwl.test/';
+        let nomor = 1;
+        key_class = $('#key-classroom').val();
+
+        $('#key-class').val(key_class);
+
+        //list data Kelas
+        $.ajax({
+            type: "GET",
+            url: base_url + "school/" + key_class + "/list",
+            dataType: "json",
+        }).done(function (response) {
+            // $.each(response.data, function () {
+            //     $('#tabel-data-kelas').append(
+            //         "<tr>" +
+            //         "<td>" +
+            //         nomor++ + "</td>" +
+            //         "<td>" +
+            //         response.data[0].name + "</td>" +
+            //         "<td>" +
+            //         response.data.total_students + "</td>" +
+            //         "<td> " +
+            //         "<button type='button' class='btn btn-info btn-sm mx-1' id='detail-kelas-sekolah' data-toggle='modal' data-target='#detail-fotografer' school-id='" +
+            //         response.data[0].school_id + "'>Detail</button>" +
+            //         "<button type='button' class='btn btn-warning btn-sm mx-1' id='update-school' data-toggle='modal' data-target='#update-sekolah' school-id='" +
+            //         response.data[0].school_id + "'>Update</button>" +
+            //         "<button type='button' class='btn btn-danger btn-sm mx-1' id='school-del' data-id='" +
+            //         response.data[0].school_id + "'>Delete</button>" +
+            //         "</td > " +
+            //         "</tr>"
+            //     );
+            // });
+
+            response.data.forEach(dat => {
+                $('#tabel-data-kelas').append(
+                    "<tr id='key-classrooms-" + dat.classroom_id + "'>>" +
+                    "<td>" +
+                    nomor++ + "</td>" +
+                    "<td>" +
+                    dat.name + "</td>" +
+                    "<td>" +
+                    dat.total_students + "</td>" +
+                    "<td> " +
+                    "<button type='button' class='btn btn-warning btn-sm mx-1' id='update-class' data-toggle='modal' data-target='#update-kelas' class-id='" +
+                    dat.classroom_id + "'>Update</button>" +
+                    "<button type='button' class='btn btn-danger btn-sm mx-1' id='classroom-del-btn' data-id='" +
+                    dat.classroom_id + "'>Delete</button>" +
+                    "</td > " +
+                    "</tr>"
+                );
+            });
+        });
+
+        //tambah data Kelas
+        $(document).on('click', '#tambah-kelas-btn', function () {
+            $.ajax({
+                type: "POST",
+                url: base_url + "classrooms/",
+                data: $('#post-kelas').serialize(),
+            }).done(function (response) {
+                $('#close-button-kelas').click();
+                console.log(response.data.name);
+                $('#name').val('');
+                $('#total_students').val('');
+                $('#tabel-data-kelas').append(
+                    "<tr id='key-classrooms-" + response.data.classroom_id + "'>" +
+                    "<td>" +
+                    nomor++ + "</td>" +
+                    "<td>" +
+                    response.data.name + "</td>" +
+                    "<td>" +
+                    response.data.total_students + "</td>" +
+                    "<td> " +
+                    "<button type='button' class='btn btn-warning btn-sm mx-1' id='update-class' data-toggle='modal' data-target='#update-kelas' class-id='" +
+                    response.data.classroom_id + "'>Update</button>" +
+                    "<button type='button' class='btn btn-danger btn-sm mx-1' id='classroom-del-btn' data-id='" +
+                    response.data.classroom_id + "'>Delete</button>" +
+                    "</td > " +
+                    "</tr>"
+                );
+            });
+        });
+
+        //hapus data Kelas
+        $(document).on('click', '#classroom-del-btn', function () {
+
+            _this = $(this);
+            _id = _this.attr('data-id');
+
+            $.ajax({
+                type: "DELETE",
+                url: base_url + "classroom/" + _id,
+            }).done(function (response) {
+                $("#key-classrooms-"+_id+"").remove();
+                alert(response.data);
+            }).fail(function (xhr, status, error) {
+                if (xhr.status == 403) {
+                    alert(JSON.parse(xhr.responseText).error);
+                }
+            });
+        });
+
+        //update kelas
+        //edit data kelas
+        $(document).on('click', '#update-class', function () {
+            _this = $(this);
+            _class_id = _this.attr('class-id');
+
+            $.ajax({
+                type: "GET",
+                url: base_url + "classroom/" + _class_id,
+                dataType: "json",
+            }).done(function (response) {
+                $('#class_id-update').val(response.data.class_id);
+                $('#school_id-update').val(response.data.school_id);
+                $('#name-class-update').val(response.data.name);
+                $('#total_students-update').val(response.data.total_students);
+                console.log(response.data.name);
+            });
+        });
+        
+        //put data edit kelas
+        $(document).on('click', '#update-school-btn', function () {
+
+            $.ajax({
+                type: 'PUT',
+                url: base_url + "classroom/" + $('#class_id').val(),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                data:$('#form-update-sekolah').serialize(),
+
+            }).done(function (response) {
+                console.log(response);
+                $('#close-button-school-update').click();
+                $('#list-sekolah').click();
+                alert("berhasil update data!");
+            }).fail(function (response) {
+                alert('Gagal Boss!');
+                console.log(response);
+                
+            });
+        });
+    });
+</script>
